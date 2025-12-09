@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Inventory System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- CSS VARIABLES FOR COLOR SCHEME --- */
+        :root {
+            --bg-color: #0f172a;       /* Deep Slate Blue */
+            --card-bg: #1e293b;        /* Lighter Slate */
+            --accent: #10b981;         /* Emerald Green (The "Sharp" Color) */
+            --accent-hover: #059669;
+            --text-main: #f1f5f9;      /* White-ish */
+            --text-muted: #94a3b8;     /* Grey */
+            --font-main: 'Inter', sans-serif;
+        }
+
+        /* --- GLOBAL STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(15, 23, 42, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #334155;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: radial-gradient(circle at top, #1e293b 0%, #0f172a 70%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+
+        /* --- SECTIONS COMMON --- */
+        section {
+            padding: 80px 10%;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* --- FEATURES GRID --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .feature-card i {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 { margin-bottom: 10px; }
+        .feature-card p { color: var(--text-muted); }
+
+        /* --- SCREENSHOTS GALLERY --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid #334155;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.02);
+        }
+
+        .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* --- INSTALLATION (CODE BLOCK) --- */
+        .install-guide {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+        }
+
+        .step {
+            margin-bottom: 30px;
+        }
+
+        .step h3 { margin-bottom: 10px; color: var(--accent); }
+        
+        code {
+            display: block;
+            background: #0f172a;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #e2e8f0;
+            margin-top: 10px;
+            border-left: 4px solid var(--accent);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid #334155;
+            color: var(--text-muted);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; } /* Simple hide for mobile for now */
+            .gallery-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">LIB.SYSTEM</div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#screenshots">Screenshots</a>
+            <a href="#install">Installation</a>
+            <a href="https://github.com/YOUR_USERNAME/YOUR_REPO_NAME" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Library Inventory System</h1>
+        <p>A comprehensive Python application for managing books, tracking inventory, and streamlining library operations.</p>
+        
+        <div class="btn-group">
+            <a href="LibrarySystem_v1.zip" download class="btn btn-primary">
+                <i class="fas fa-download"></i> Download Code
+            </a>
+            
+            <a href="https://github.com/YOUR_USERNAME/YOUR_REPO_NAME" target="_blank" class="btn btn-secondary">
+                <i class="fab fa-github"></i> View on GitHub
+            </a>
+        </div>
+    </header>
+
+    <section id="features">
+        <h2 class="section-title">Key Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-book"></i>
+                <h3>Book Management</h3>
+                <p>Add, update, and delete books easily. Includes categorization by genre, author, and ISBN tracking.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-server"></i>
+                <h3>Robust Backend</h3>
+                <p>Powered by Python with efficient data handling and persistent storage logic.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-desktop"></i>
+                <h3>Clean Frontend</h3>
+                <p>User-friendly interface built for easy navigation and quick inventory checks.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="screenshots">
+        <h2 class="section-title">Application Gallery</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="images/frontend_pic.png" alt="Frontend Interface">
+                <div class="caption">User Interface Dashboard</div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="images/backend_pic.png" alt="Backend Code Structure">
+                <div class="caption">Backend Logic Structure</div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="images/feature_pic.png" alt="Add Book Feature">
+                <div class="caption">Inventory Management Module</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="install">
+        <h2 class="section-title">How to Install & Run</h2>
+        <div class="install-guide">
+            
+            <div class="step">
+                <h3>1. Prerequisites</h3>
+                <p>Ensure you have Python installed on your system. You also need Visual Studio Code (VS Code).</p>
+            </div>
+
+            <div class="step">
+                <h3>2. Setup VS Code Python Extension</h3>
+                <p>Open VS Code, go to the Extensions view (Ctrl+Shift+X), search for <strong>"Python"</strong> by Microsoft, and click Install.</p>
+            </div>
+
+            <div class="step">
+                <h3>3. Install Dependencies</h3>
+                <p>Open the terminal in the project folder and run:</p>
+                <code>pip install -r requirements.txt</code>
+            </div>
+
+            <div class="step">
+                <h3>4. Run the Application</h3>
+                <p>Start the server/application by running:</p>
+                <code>python main.py</code>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Library Inventory System. Built with Python.</p>
+    </footer>
+
+</body>
+</html>
