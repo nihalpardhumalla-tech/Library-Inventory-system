@@ -1,492 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>LibraryDesk — Online Library & Inventory System</title>
-
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-
-  <style>
-    :root{
-      --bg:#0f172a;           /* deep slate */
-      --card:#111827;         /* card background */
-      --muted:#94a3b8;
-      --text:#e6eef6;
-      --accent:#10b981;       /* green highlight */
-      --accent-2:#f59e0b;     /* orange secondary */
-      --glass: rgba(255,255,255,0.03);
-      --radius: 12px;
-      --mono: 'Courier New', monospace;
-      --ff: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:var(--ff);
-      background: linear-gradient(180deg,#071020 0%, var(--bg) 55%);
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.55;
-    }
-
-    /* ---------- NAV ---------- */
-    nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:20px;
-      padding:18px 6%;
-      position:sticky;
-      top:0;
-      backdrop-filter: blur(8px);
-      background: linear-gradient(180deg, rgba(7,16,32,0.6), rgba(7,16,32,0.25));
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      z-index:999;
-    }
-    .logo{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      font-weight:700;
-      color:var(--accent);
-      letter-spacing:1px;
-    }
-    .logo i{ font-size:22px; transform:translateY(-1px) }
-    .nav-links{ display:flex; gap:20px; align-items:center }
-    .nav-links a{ color:var(--muted); text-decoration:none; font-weight:600; }
-    .nav-links a:hover{ color:var(--text) }
-
-    /* ---------- HERO ---------- */
-    header.hero{
-      padding:80px 6% 40px;
-      text-align:left;
-      display:grid;
-      grid-template-columns: 1fr 420px;
-      gap:32px;
-      align-items:center;
-    }
-    .hero-left h1{
-      font-size:42px;
-      margin:0 0 12px 0;
-      line-height:1.03;
-      color:var(--text);
-    }
-    .hero-left p{ color:var(--muted); max-width:66ch; margin:0 0 22px 0; font-size:1.05rem }
-    .btns{ display:flex; gap:14px; flex-wrap:wrap }
-    .btn{
-      padding:12px 18px;
-      border-radius:10px;
-      font-weight:700;
-      display:inline-flex;
-      gap:10px;
-      align-items:center;
-      cursor:pointer;
-      border: none;
-      text-decoration:none;
-    }
-    .btn-primary{ background: linear-gradient(90deg,var(--accent), #059669); color:#021012; }
-    .btn-secondary{ background: transparent; border:2px solid var(--accent); color:var(--accent); }
-    .btn-download{ background: linear-gradient(90deg,#f59e0b, #f97316); color:#08100b }
-
-    /* hero right: quick summary card */
-    .hero-card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border:1px solid rgba(255,255,255,0.04);
-      padding:20px;
-      border-radius:var(--radius);
-      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
-    }
-    .hero-card h4{ margin:0 0 6px 0; color:var(--accent) }
-    .meta{ display:flex; gap:12px; margin-top:10px; color:var(--muted); font-size:0.95rem }
-
-    /* ---------- SECTIONS ---------- */
-    section{ padding:64px 6%; }
-    .section-title{
-      text-align:left;
-      font-size:1.6rem;
-      margin-bottom:18px;
-      color:var(--text);
-      position:relative;
-      font-weight:700;
-    }
-    .section-sub{ color:var(--muted); margin-bottom:22px; max-width:78ch }
-
-    /* ---------- FEATURES GRID ---------- */
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:18px;
-    }
-    .card{
-      background:var(--card);
-      border-radius:12px;
-      padding:18px;
-      border:1px solid rgba(255,255,255,0.03);
-      transition:transform .18s ease, box-shadow .18s ease;
-    }
-    .card:hover{ transform:translateY(-8px); box-shadow:0 18px 40px rgba(2,6,23,0.5) }
-    .card h3{ margin:6px 0 8px 0; color:var(--text) }
-    .card p{ color:var(--muted); margin:0 }
-
-    .feature-icon{
-      width:48px;height:48px;border-radius:10px;display:inline-grid;place-items:center;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      color:var(--accent); font-size:20px;
-    }
-
-    /* ---------- GALLERY ---------- */
-    .gallery{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap:18px;
-    }
-    .gallery-item{
-      border-radius:12px;
-      overflow:hidden;
-      background:var(--card);
-      border:1px solid rgba(255,255,255,0.03);
-      position:relative;
-    }
-    .gallery-item img{ display:block; width:100%; height:100%; object-fit:cover; transition:transform .3s ease; }
-    .gallery-item:hover img{ transform:scale(1.03) }
-    .caption{
-      position:absolute; left:0; right:0; bottom:0; padding:12px 14px; font-weight:700;
-      background: linear-gradient(180deg, rgba(10,14,20,0.0), rgba(5,8,12,0.6));
-      color:var(--text);
-    }
-
-    /* ---------- INSTALL GUIDE (CODE) ---------- */
-    .install{
-      display:grid;
-      grid-template-columns:1fr 360px;
-      gap:20px;
-      align-items:start;
-    }
-    pre.code{
-      background: #071226;
-      padding:18px;
-      border-radius:10px;
-      overflow:auto;
-      color:#e6eef6;
-      font-family:var(--mono);
-      border-left:6px solid var(--accent);
-      margin:0;
-    }
-
-    .callout{
-      background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
-      border:1px solid rgba(255,255,255,0.03);
-      padding:14px;
-      border-radius:10px;
-      color:var(--muted);
-    }
-
-    footer{
-      padding:28px 6%;
-      color:var(--muted);
-      border-top:1px solid rgba(255,255,255,0.03);
-      text-align:left;
-    }
-
-    /* small screens */
-    @media (max-width:980px){
-      header.hero{ grid-template-columns: 1fr; text-align:center; gap:18px }
-      .install{ grid-template-columns:1fr; }
-      .hero-left{ order:2 }
-      .hero-card{ order:1 }
-      .nav-links{ display:none }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LibraryDesk - Frontend Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #111827;
+            --text: #e6eef6;
+            --muted: #94a3b8;
+            --accent: #10b981;
+            --radius: 12px;
+            --ff: 'Inter', system-ui;
+        }
+        body {
+            font-family: var(--ff);
+            background-color: var(--bg);
+            color: var(--text);
+            padding: 20px;
+        }
+        .modal-content {
+            background-color: var(--card);
+            border-radius: var(--radius);
+            padding: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+        h2 {
+            color: var(--accent);
+            margin-top: 0;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+        .app-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+        .catalog-pane, .add-pane {
+            background-color: #0d1320;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .catalog-pane h3, .add-pane h3 {
+            color: var(--text);
+            font-size: 1.1rem;
+            margin-top: 0;
+        }
+        .list-entry {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.95rem;
+        }
+        .list-entry:last-child { border-bottom: none; }
+        .list-entry span { color: var(--muted); }
+        .list-entry strong { color: var(--text); }
+        .form-group { margin-bottom: 12px; }
+        .form-group label {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: #070c17;
+            color: var(--text);
+        }
+        .btn-add {
+            background-color: var(--accent);
+            color: #021012;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
+    <div class="modal-content">
+        <h2><i class="fas fa-desktop"></i> LibraryDesk Frontend Dashboard</h2>
+        <p>This is the main Python/Tkinter GUI. It features a central, searchable catalog and a sidebar for quick item addition.</p>
 
-  <nav>
-    <div class="logo"><i class="fas fa-book-reader"></i> LIBRARYDESK</div>
-    <div class="nav-links">
-      <a href="#features">Features</a>
-      <a href="#architecture">Architecture</a>
-      <a href="#screenshots">Screenshots</a>
-      <a href="#install">Install</a>
-      <a href="#test">Test</a>
-      <a href="#contact"><i class="fab fa-github"></i> GitHub</a>
-    </div>
-  </nav>
-
-  <!-- HERO -->
-  <header class="hero">
-    <div class="hero-left">
-      <h1>LibraryDesk — a compact, production-ready Online Library & Inventory System</h1>
-      <p>
-        A lightweight Python/Tkinter frontend with an optional Flask backend for managing books, magazines and media.
-        Designed for clarity, portability and developer productivity — ideal for small libraries, labs, and developer demos.
-      </p>
-
-      <div class="btns">
-        <a class="btn btn-primary" href="#install"><i class="fas fa-cogs"></i> Get Started</a>
-        <a class="btn btn-download" href="https://github.com/nihalpardhumalla-tech/Library-Inventory-system/releases" target="_blank"><i class="fas fa-download"></i> Download App</a>
-        <a class="btn btn-secondary" href="#screenshots"><i class="fas fa-image"></i> View Gallery</a>
-      </div>
-    </div>
-
-    <aside class="hero-card">
-      <h4>Quick facts</h4>
-      <div class="meta">
-        <div><strong>Tech:</strong> Python · Tkinter · Flask (optional)</div>
-      </div>
-      <div style="margin-top:12px; color:var(--muted)">
-        <div><strong>Mode:</strong> Desktop UI with optional local backend</div>
-        <div><strong>Data:</strong> JSON file or mock backend for demos</div>
-      </div>
-    </aside>
-  </header>
-
-  <!-- FEATURES -->
-  <section id="features">
-    <div class="section-title">Concept & Key Features</div>
-    <div class="section-sub">
-      LibraryDesk is designed around three goals: simplicity for end-users, minimal dependencies for portability, and a clear API-driven separation of UI and backend for extensibility.
-    </div>
-
-    <div class="grid">
-      <div class="card">
-        <div style="display:flex;gap:12px;align-items:center">
-          <div class="feature-icon"><i class="fas fa-book"></i></div>
-          <div>
-            <h3>Catalog & Management</h3>
-            <p>Add, update and remove items (books, magazines). Each item stores title, creator, publication year and category.</p>
-          </div>
+        <div class="app-layout">
+            <div class="catalog-pane">
+                <h3><i class="fas fa-list"></i> Catalog View (Main Table)</h3>
+                <div style="margin-bottom: 10px;">
+                    <input type="text" placeholder="Search by Title or Creator..." style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.1); background-color: #070c17; color: var(--text);">
+                </div>
+                <div class="list-entry">
+                    <strong>1. The Phoenix Project</strong>
+                    <span>Creator: Gene Kim (Book)</span>
+                </div>
+                <div class="list-entry">
+                    <strong>2. Clean Code</strong>
+                    <span>Creator: Robert C. Martin (Book)</span>
+                </div>
+                <div class="list-entry">
+                    <strong>3. Scientific American</strong>
+                    <span>Creator: Various (Magazine)</span>
+                </div>
+                <div class="list-entry" style="background-color: rgba(16, 185, 129, 0.1); border-radius: 4px;">
+                    <strong>4. Selected Item Detail</strong>
+                    <span>*Clicking an item loads details and 'Delete' button*</span>
+                </div>
+                <div class="list-entry">
+                    <strong>5. Homo Deus</strong>
+                    <span>Creator: Yuval Noah Harari (Book)</span>
+                </div>
+                <p style="color: var(--muted); text-align: center; margin-top: 20px;">Total Items: 5. Displaying all.</p>
+            </div>
+            
+            <div class="add-pane">
+                <h3><i class="fas fa-plus-circle"></i> Add New Item</h3>
+                <div class="form-group">
+                    <label for="item_title">Title</label>
+                    <input type="text" id="item_title" value="New Item Title" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="item_creator">Creator / Author</label>
+                    <input type="text" id="item_creator" value="New Author" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="item_year">Publication Year</label>
+                    <input type="number" id="item_year" value="2025" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="item_category">Category</label>
+                    <select id="item_category" disabled>
+                        <option>Book</option>
+                        <option>Magazine</option>
+                        <option>Media</option>
+                    </select>
+                </div>
+                <button class="btn-add" disabled><i class="fas fa-check"></i> Save Item (Sends POST to backend)</button>
+            </div>
         </div>
-      </div>
-
-      <div class="card">
-        <div style="display:flex;gap:12px;align-items:center">
-          <div class="feature-icon" style="color:var(--accent-2)"><i class="fas fa-server"></i></div>
-          <div>
-            <h3>Optional Backend</h3>
-            <p>Includes a small JSON-backed Flask server (mock) — useful for local demos, testing and integration. Endpoints for list, search, create, delete.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div style="display:flex;gap:12px;align-items:center">
-          <div class="feature-icon"><i class="fas fa-desktop"></i></div>
-          <div>
-            <h3>Responsive Desktop UI</h3>
-            <p>High-DPI Tkinter UI with clear typography, searchable catalog, sidebar add form and confirm-delete modal for safety.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div style="display:flex;gap:12px;align-items:center">
-          <div class="feature-icon"><i class="fas fa-lock"></i></div>
-          <div>
-            <h3>Safe Deletion Flow</h3>
-            <p>Delete requires explicit confirmation (typing 'b') to avoid accidental removals — ideal for production demos or training sessions.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div style="display:flex;gap:12px;align-items:center">
-          <div class="feature-icon" style="color:var(--accent-2)"><i class="fas fa-sync"></i></div>
-          <div>
-            <h3>Seamless Sync</h3>
-            <p>Frontend communicates using REST endpoints. The UI reloads the full list after create/delete to preserve consistent serial ordering.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div style="display:flex;gap:12px;align-items:center">
-          <div class="feature-icon"><i class="fas fa-vial"></i></div>
-          <div>
-            <h3>Testable</h3>
-            <p>Includes headless smoke test mode (`--no-gui`) and mock backend (`--mock`) so CI or dev machines can run quick checks without a GUI.</p>
-          </div>
-        </div>
-      </div>
     </div>
-  </section>
-
-  <!-- Architecture -->
-  <section id="architecture">
-    <div class="section-title">Architecture & Code Overview</div>
-    <div class="section-sub">
-      The app uses a clean separation:
-      <ul>
-        <li><strong>Frontend (Tkinter):</strong> User interactions, list rendering, add/delete workflows, local UI state.</li>
-        <li><strong>Backend (Flask, optional):</strong> Small JSON-based REST API with endpoints for listing, filtering, searching, creation and deletion.</li>
-        <li><strong>Storage:</strong> `media.json` for persistent data, or in-memory store for the mock demo server.</li>
-      </ul>
-    </div>
-
-    <div class="grid">
-      <div class="card">
-        <h3>REST endpoints (example)</h3>
-        <p style="color:var(--muted);margin-top:8px">Endpoints implemented by the mock Flask backend:</p>
-        <ul style="color:var(--muted);margin:8px 0 0 18px">
-          <li><code>/media</code> — GET (list all)</li>
-          <li><code>/media/category/&lt;category&gt;</code> — GET (filter)</li>
-          <li><code>/media/search/&lt;name&gt;</code> — GET (search)</li>
-          <li><code>/media/create</code> — POST (create item)</li>
-          <li><code>/media/delete/&lt;id&gt;</code> — DELETE (delete item)</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3>Important design choices</h3>
-        <ul style="color:var(--muted);margin:8px 0 0 18px">
-          <li>Items are stored with stable IDs (UUID or numeric) and the UI requests a full reload to keep serial ordering contiguous.</li>
-          <li>Mock backend is optional: the UI works with a live backend URL or the provided mock server for demos.</li>
-          <li>Focus on portability: minimal Python deps (Flask + requests + Pillow for GIFs if used).</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- SCREENSHOTS -->
-  <section id="screenshots">
-    <div class="section-title">Application Gallery</div>
-    <div class="section-sub">Screenshots of the running application (UI, backend structure and add-book flow).</div>
-
-    <div class="gallery">
-      <div class="gallery-item">
-        <div style="width:100%; height:250px; background:linear-gradient(135deg, var(--accent), var(--accent-2)); display:flex; align-items:center; justify-content:center; font-weight:700; color:white; font-size:18px;">📊 Frontend Dashboard</div>
-        <div class="caption">Catalog & Dashboard — searchable list and details pane</div>
-      </div>
-
-      <div class="gallery-item">
-        <div style="width:100%; height:250px; background:linear-gradient(135deg, #8b5cf6, #ec4899); display:flex; align-items:center; justify-content:center; font-weight:700; color:white; font-size:18px;">⚙️ Backend Structure</div>
-        <div class="caption">Backend structure & sample data (`media.json` view)</div>
-      </div>
-
-      <div class="gallery-item">
-        <div style="width:100%; height:250px; background:linear-gradient(135deg, #06b6d4, #0891b2); display:flex; align-items:center; justify-content:center; font-weight:700; color:white; font-size:18px;">✨ Add Item Modal</div>
-        <div class="caption">Add item modal and deletion confirmation workflow</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- INSTALL & RUN -->
-  <section id="install">
-    <div class="section-title">Install & Run (Production-ready instructions)</div>
-    <div class="section-sub">Follow these steps for a local production-like environment. The app is intentionally small-dependency to be runnable on any desktop with Python 3.8+.</div>
-
-    <div class="install">
-      <div>
-        <h3>1. Prerequisites</h3>
-        <div class="callout">
-          <strong>Requirements</strong>
-          <ul>
-            <li>Python 3.8 or newer</li>
-            <li>pip (Python package manager)</li>
-            <li>Optional: Visual Studio Code for editing and debugging</li>
-          </ul>
-        </div>
-
-        <h3 style="margin-top:18px">2. Install dependencies</h3>
-        <pre class="code">
-# create a venv (recommended)
-python -m venv .venv
-# activate it:
-# Windows: .venv\Scripts\activate
-# macOS/Linux: source .venv/bin/activate
-
-# install required packages
-pip install -r requirements.txt
-        </pre>
-
-        <h3 style="margin-top:18px">3. Start the application</h3>
-        <pre class="code">
-# Run the backend (production or mock):
-python backend.py
-
-# Run the GUI application:
-python app.py
-        </pre>
-        <p style="color:var(--muted);margin-top:10px">Note: In the repository sample, `backend.py` is the Flask server. The GUI script `app.py` (or the single-file script you already have) connects to the backend via the configured URL (defaults to <code>http://127.0.0.1:5000</code>).</p>
-      </div>
-
-      <aside>
-        <div class="card">
-          <h3>Headless / CI test</h3>
-          <p style="color:var(--muted)">Run:</p>
-          <pre class="code">python app.py --no-gui --mock</pre>
-          <p style="color:var(--muted)">This executes a smoke test that creates and deletes a test record against the mock backend.</p>
-        </div>
-
-        <div style="height:18px"></div>
-
-        <div class="card">
-          <h3>Configuration</h3>
-          <ul style="color:var(--muted);margin:8px 0 0 18px">
-            <li>To change backend URL: set environment variable <code>LIBRARY_BACKEND_URL</code> or pass <code>--backend-url</code>.</li>
-            <li>The mock backend is started with the <code>--mock</code> flag.</li>
-          </ul>
-        </div>
-      </aside>
-    </div>
-  </section>
-
-  <!-- TEST PLAN -->
-  <section id="test">
-    <div class="section-title">Test Plan & QA</div>
-    <div class="section-sub">Short checklist to verify the app works as expected on a new machine.</div>
-
-    <div class="grid">
-      <div class="card">
-        <h3>Manual smoke tests</h3>
-        <ul style="color:var(--muted);margin:8px 0 0 18px">
-          <li>Start backend and confirm <code>GET /media</code> returns JSON.</li>
-          <li>Open the GUI and verify it loads the catalog.</li>
-          <li>Create an item via sidebar — it appears in the list after refresh.</li>
-          <li>Select an item, open delete confirm, type <code>b</code>, delete — ensure it disappears.</li>
-          <li>Search for an item by title and verify results.</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3>Automated checks</h3>
-        <ul style="color:var(--muted);margin:8px 0 0 18px">
-          <li>Run the headless smoke test: <code>python app.py --no-gui --mock</code>.</li>
-          <li>CI job: run the smoke test and ensure exit code 0 before publishing new builds.</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3>Common troubleshooting</h3>
-        <ul style="color:var(--muted);margin:8px 0 0 18px">
-          <li><strong>Backend unreachable</strong> — ensure the mock backend is running or set correct <code>--backend-url</code>.</li>
-          <li><strong>Missing dependencies</strong> — run <code>pip install -r requirements.txt</code>.</li>
-          <li><strong>Permission issues</strong> — ensure you run Python with sufficient rights to create `media.json` in the project folder.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <footer id="contact">
-    <div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap">
-      <div>
-        <strong>LibraryDesk</strong><br/>
-        Lightweight library inventory — local-first desktop app with optional backend.
-      </div>
-      <div style="text-align:right;color:var(--muted)">
-        <div>© <span id="year"></span> LibraryDesk</div>
-        <div style="margin-top:6px">Repo: <a href="https://github.com/nihalpardhumalla-tech/Library-Inventory-system" target="_blank" style="color:var(--accent)">GitHub Repository</a></div>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    // small helpers
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
