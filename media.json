@@ -1,0 +1,242 @@
+{
+    "7f87cbbf-007e-4ed1-bca5-e2f000ec9dc8": {
+        "name": "The Great Gatsby",
+        "author": "F. Scott Fitzgerald",
+        "publication_date": "1925",
+        "category": "Book"
+    },
+    "57e2c7b8-a3b0-42f1-9dac-11243cef9105": {
+        "name": "To Kill a Mockingbird",
+        "author": "Harper Lee",
+        "publication_date": "1960",
+        "category": "Book"
+    },
+    "27b5d8bd-7026-4aff-8795-ec5d0fd0eb2d": {
+        "name": "Pride and Prejudice",
+        "author": "Jane Austen",
+        "publication_date": "1813",
+        "category": "Book"
+    },
+    "9069fdc1-ac1e-4544-ab77-db6c9049e9e9": {
+        "name": "The Catcher in the Rye",
+        "author": "J.D. Salinger",
+        "publication_date": "1951",
+        "category": "Book"
+    },
+    "02931ad8-3f17-472d-aac2-80ba7b8c88f6": {
+        "name": "1984",
+        "author": "George Orwell",
+        "publication_date": "1949",
+        "category": "Book"
+    },
+    "ba1a55d6-03ca-4cec-af43-7d9a0ad20c7e": {
+        "name": "Brave New World",
+        "author": "Aldous Huxley",
+        "publication_date": "1932",
+        "category": "Book"
+    },
+    "f4aedd28-d3dc-4ade-a9f5-b07fc71a08a0": {
+        "name": "The Hobbit",
+        "author": "J.R.R. Tolkien",
+        "publication_date": "1937",
+        "category": "Book"
+    },
+    "8d48e414-9de7-4df3-8740-9b8da2d7b04b": {
+        "name": "The Lord of the Rings",
+        "author": "J.R.R. Tolkien",
+        "publication_date": "1954",
+        "category": "Book"
+    },
+    "35d24770-7da4-4fa6-84b4-8f74d2dbae15": {
+        "name": "Moby Dick",
+        "author": "Herman Melville",
+        "publication_date": "1851",
+        "category": "Book"
+    },
+    "1ef0709d-b610-48a0-82bb-cb919d6f2b98": {
+        "name": "War and Peace",
+        "author": "Leo Tolstoy",
+        "publication_date": "1869",
+        "category": "Book"
+    },
+    "6bc4a62b-237c-45aa-aba1-10de7026ad82": {
+        "name": "Crime and Punishment",
+        "author": "Fyodor Dostoevsky",
+        "publication_date": "1866",
+        "category": "Book"
+    },
+    "54eda0de-e2ba-4a49-ae28-4a304071fab8": {
+        "name": "The Brothers Karamazov",
+        "author": "Fyodor Dostoevsky",
+        "publication_date": "1879",
+        "category": "Book"
+    },
+    "4bcf1426-3c42-4ab9-b20f-1ded10767a78": {
+        "name": "Jane Eyre",
+        "author": "Charlotte Bront\u00eb",
+        "publication_date": "1847",
+        "category": "Book"
+    },
+    "d74567ee-397d-412d-8577-9e15e7af904f": {
+        "name": "Wuthering Heights",
+        "author": "Emily Bront\u00eb",
+        "publication_date": "1847",
+        "category": "Book"
+    },
+    "6f5ef83f-8bed-4a6a-acef-94cc7247d09d": {
+        "name": "The Odyssey",
+        "author": "Homer",
+        "publication_date": "800 BC",
+        "category": "Book"
+    },
+    "26436bfd-b500-478d-b5af-57c1da541cc1": {
+        "name": "The Iliad",
+        "author": "Homer",
+        "publication_date": "800 BC",
+        "category": "Book"
+    },
+    "30d8dfc6-d69c-48b0-8265-e373eda3a0ef": {
+        "name": "Don Quixote",
+        "author": "Miguel de Cervantes",
+        "publication_date": "1605",
+        "category": "Book"
+    },
+    "6f9a4b6d-c896-4afb-860d-a837b04f037a": {
+        "name": "Les Mis\u00e9rables",
+        "author": "Victor Hugo",
+        "publication_date": "1862",
+        "category": "Book"
+    },
+    "851aba9a-5c6b-4cf9-956a-bdaec8c81164": {
+        "name": "The Hunchback of Notre-Dame",
+        "author": "Victor Hugo",
+        "publication_date": "1831",
+        "category": "Book"
+    },
+    "5d8171f0-7e1c-4927-b905-4372fc46bfeb": {
+        "name": "Frankenstein",
+        "author": "Mary Shelley",
+        "publication_date": "1818",
+        "category": "Book"
+    },
+    "ca60fa05-632b-499a-94c4-4bb21073edd8": {
+        "name": "National Geographic",
+        "author": "National Geographic Society",
+        "publication_date": "2024",
+        "category": "Magazine"
+    },
+    "99cc2b37-eaab-4fb8-b6fe-357c00d4ab44": {
+        "name": "Time",
+        "author": "Time Inc.",
+        "publication_date": "2024",
+        "category": "Magazine"
+    },
+    "19d0a975-5d22-467c-89f7-b05cf55a3d0a": {
+        "name": "The Economist",
+        "author": "The Economist Newspaper",
+        "publication_date": "2024",
+        "category": "Magazine"
+    },
+    "b65468f8-e54f-4eeb-ba57-bd1cb0e2305e": {
+        "name": "Scientific American",
+        "author": "Springer Nature",
+        "publication_date": "2024",
+        "category": "Magazine"
+    },
+    "1e651ee7-b9bf-411a-8ffb-9a7756a90c88": {
+        "name": "Nature",
+        "author": "Springer Nature",
+        "publication_date": "2024",
+        "category": "Magazine"
+    },
+    "baac8d0e-03ca-4aa8-82d5-6f474c9ff23a": {
+        "name": "Science",
+        "author": "American Association for the Advancement of Science",
+        "publication_date": "2024",
+        "category": "Magazine"
+    },
+    "74fc34e2-5f9b-421e-bfaa-79abdd2f1120": {
+        "name": "Wired",
+        "author": "Cond\u00e9 Nast",
+        "publication_date": "2024",
+        "category": "Magazine"
+    },
+    "90fd265c-e488-4b15-a1d5-ddfcc4e1943c": {
+        "name": "Popular Mechanics",
+        "author": "Hearst Communications",
+        "publication_date": "2024",
+        "category": "Magazine"
+    },
+    "3444c087-c5b7-45df-81fe-a7fd1e8d6a5e": {
+        "name": "Smithsonian",
+        "author": "Smithsonian Institution",
+        "publication_date": "2024",
+        "category": "Magazine"
+    },
+    "5c0b52c3-a52a-4d43-b5c3-e1ffb1d63cd0": {
+        "name": "Vogue",
+        "author": "Cond\u00e9 Nast",
+        "publication_date": "2024",
+        "category": "Magazine"
+    },
+    "2d3b4d4c-6a02-4a8b-bc6b-ebaa502bb763": {
+        "name": "GQ",
+        "author": "Cond\u00e9 Nast",
+        "publication_date": "2024",
+        "category": "Magazine"
+    },
+    "44acf156-32fb-447a-b82d-283373ee88f5": {
+        "name": "Vanity Fair",
+        "author": "Cond\u00e9 Nast",
+        "publication_date": "2024",
+        "category": "Magazine"
+    },
+    "7abdbdd1-9fc2-411a-8759-c9963316febd": {
+        "name": "Forbes",
+        "author": "Forbes",
+        "publication_date": "2024",
+        "category": "Magazine"
+    },
+    "fdcfcc98-19ea-4e19-9ee0-678527fe9299": {
+        "name": "Business Week",
+        "author": "Bloomberg",
+        "publication_date": "2024",
+        "category": "Magazine"
+    },
+    "959ac144-b73f-412d-b346-2c4565e38447": {
+        "name": "The New Yorker",
+        "author": "Cond\u00e9 Nast",
+        "publication_date": "2024",
+        "category": "Magazine"
+    },
+    "6d32f276-97c5-492c-9dee-0698cfa83abe": {
+        "name": "Reader's Digest",
+        "author": "Trusted Media",
+        "publication_date": "2024",
+        "category": "Magazine"
+    },
+    "1b5bb60d-ead2-466c-85e2-60a995ac087d": {
+        "name": "Cosmopolitan",
+        "author": "Hearst Communications",
+        "publication_date": "2024",
+        "category": "Magazine"
+    },
+    "3233c659-6126-4a6d-814b-df0495dd1957": {
+        "name": "People",
+        "author": "Time Inc.",
+        "publication_date": "2024",
+        "category": "Magazine"
+    },
+    "1dce289d-27b8-4d90-aa8f-b978e93b71a5": {
+        "name": "Entertainment Weekly",
+        "author": "Time Inc.",
+        "publication_date": "2024",
+        "category": "Magazine"
+    },
+    "4cb9add1-f5e0-4ed6-af52-2dd131387a69": {
+        "name": "Sports Illustrated",
+        "author": "Time Inc.",
+        "publication_date": "2024",
+        "category": "Magazine"
+    }
+}
