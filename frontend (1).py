@@ -6,10 +6,9 @@ import os
 
 BASE_URL = "http://127.0.0.1:5000"
 
-# ----------------------------- Backend Helpers -----------------------------
+# ----------------------- Backend Helpers -----------------------
 
 def safe_get(url):
-    """Safe backend GET request returning dict always."""
     try:
         r = requests.get(url)
         return r.json() if r.status_code == 200 else {}
@@ -18,7 +17,6 @@ def safe_get(url):
         return {}
 
 def safe_post(url, data):
-    """Safe backend POST request."""
     try:
         r = requests.post(url, json=data)
         return r.json() if r.status_code == 200 else {}
@@ -27,14 +25,12 @@ def safe_post(url, data):
         return {}
 
 def safe_delete(url):
-    """Safe backend DELETE request."""
     try:
         r = requests.delete(url)
         return r.json() if r.status_code == 200 else {}
     except:
         messagebox.showerror("Connection Error", "Could not reach backend server.")
         return {}
-
 
 def load_all_media():
     return safe_get(f"{BASE_URL}/media")
@@ -58,7 +54,7 @@ def delete_media(item_id):
     return safe_delete(f"{BASE_URL}/media/delete/{item_id}")
 
 
-# ----------------------------- GIF Animation -----------------------------
+# ----------------------- GIF Animation -----------------------
 
 class AnimatedGIFLabel(tk.Label):
     def __init__(self, master, path, *args, **kwargs):
@@ -92,123 +88,145 @@ class AnimatedGIFLabel(tk.Label):
         self.after(100, self.animate)
 
 
-# ----------------------------- Main GUI -----------------------------
+# ----------------------- Main GUI -----------------------
 
 class LibraryGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Online Library")
-        self.root.geometry("750x550")
-        self.root.configure(bg="black")
+        self.root.title("LegendaryOneApex Library")
+        self.root.geometry("800x620")
+        self.root.configure(bg="#020617")
 
         # ---------------- Banner ----------------
-        self.banner = AnimatedGIFLabel(root, "library.gif", bg="black")
-        self.banner.pack(pady=5)
+        self.banner = AnimatedGIFLabel(root, "library.gif", bg="#020617")
+        self.banner.pack(pady=8)
 
         # ---------------- Title ----------------
         tk.Label(
             root,
             text="Online Library",
-            font=("Helvetica Neue", 26, "bold"),
-            bg="black",
-            fg="white"
-        ).pack(pady=10)
+            font=("Segoe UI", 28, "bold"),
+            bg="#020617",
+            fg="#f59e0b"
+        ).pack(pady=5)
 
         # ---------------- Top Controls ----------------
-        btn_frame = tk.Frame(root, bg="black")
-        btn_frame.pack(pady=5)
+        top_card = tk.Frame(root, bg="#0b1220", bd=0)
+        top_card.pack(fill="x", padx=20, pady=12)
 
         self.category_var = tk.StringVar()
-        category_menu = ttk.Combobox(
-            btn_frame,
+        self.category_menu = ttk.Combobox(
+            top_card,
             textvariable=self.category_var,
             values=["Book", "Film", "Magazine"],
-            width=15,
-            font=("Helvetica", 11)
+            font=("Segoe UI", 11),
+            width=14
         )
-        category_menu.grid(row=0, column=0, padx=6)
+        self.category_menu.grid(row=0, column=0, padx=8)
 
         tk.Button(
-            btn_frame,
+            top_card,
             text="Filter",
-            width=10,
-            bg="#4da6ff",
+            bg="#38bdf8",
             fg="black",
+            font=("Segoe UI", 11, "bold"),
+            relief="flat",
+            cursor="hand2",
             command=self.filter_category
-        ).grid(row=0, column=1, padx=5)
+        ).grid(row=0, column=1, padx=6)
 
-        # Search Entry
         self.search_var = tk.StringVar()
         tk.Entry(
-            btn_frame,
+            top_card,
             textvariable=self.search_var,
-            width=20,
-            font=("Helvetica", 11),
-            bg="#1a1a1a",
+            width=22,
+            font=("Segoe UI", 11),
+            bg="#020617",
             fg="white",
-            insertbackground="white"
-        ).grid(row=0, column=2, padx=6)
+            insertbackground="white",
+            relief="flat"
+        ).grid(row=0, column=2, padx=10)
 
         tk.Button(
-            btn_frame,
+            top_card,
             text="Search",
-            width=10,
-            bg="#4da6ff",
+            bg="#38bdf8",
             fg="black",
+            font=("Segoe UI", 11, "bold"),
+            relief="flat",
+            cursor="hand2",
             command=self.search_item
-        ).grid(row=0, column=3, padx=5)
+        ).grid(row=0, column=3, padx=6)
 
-        # ---------------- Media List ----------------
+        # ---------------- Listbox ----------------
         self.media_list = tk.Listbox(
             root,
-            width=75,
+            width=90,
             height=15,
-            font=("Helvetica", 12),
-            bg="#1a1a1a",
-            fg="white",
-            selectbackground="#4da6ff",
+            font=("Segoe UI", 12),
+            bg="#020617",
+            fg="#e2e8f0",
+            selectbackground="#38bdf8",
             selectforeground="black",
             borderwidth=0
         )
-        self.media_list.pack(pady=10)
+        self.media_list.pack(padx=20, pady=10)
         self.media_list.bind("<<ListboxSelect>>", self.show_details)
 
-        # ---------------- Details Label ----------------
+        # ---------------- Details Card ----------------
         self.details_label = tk.Label(
             root,
             text="Select a media item to view details",
-            font=("Helvetica", 12),
-            bg="black",
-            fg="white"
+            font=("Segoe UI", 12),
+            bg="#0b1220",
+            fg="#e2e8f0",
+            justify="left",
+            padx=10,
+            pady=10,
+            anchor="w"
         )
-        self.details_label.pack(pady=5)
+        self.details_label.pack(fill="x", padx=20, pady=8)
 
         # ---------------- Bottom Buttons ----------------
-        bottom_frame = tk.Frame(root, bg="black")
-        bottom_frame.pack(pady=10)
+        bottom_card = tk.Frame(root, bg="#0b1220")
+        bottom_card.pack(fill="x", padx=20, pady=10)
 
         tk.Button(
-            bottom_frame,
-            text="Add Book",
-            width=12,
-            bg="#4da6ff",
+            bottom_card,
+            text="➕ Add Book",
+            width=14,
+            bg="#22c55e",
             fg="black",
+            font=("Segoe UI", 12, "bold"),
+            relief="flat",
+            cursor="hand2",
             command=self.add_media_window
-        ).grid(row=0, column=0, padx=15)
+        ).grid(row=0, column=0, padx=30)
 
-        tk.Button(
-            bottom_frame,
-            text="Delete Book",
-            width=12,
-            bg="#ff4d4d",
+        # --- Enhanced Delete Button ---
+        self.delete_btn = tk.Button(
+            bottom_card,
+            text="🗑️ Delete Book",
+            width=18,
+            bg="#ff3b3b",
             fg="white",
+            font=("Segoe UI", 12, "bold"),
+            relief="flat",
+            activebackground="#ff6b6b",
+            activeforeground="white",
+            cursor="hand2",
             command=self.remove_selected
-        ).grid(row=0, column=1, padx=15)
+        )
+        self.delete_btn.grid(row=0, column=1, padx=30)
+
+        # Hover glow effect
+        self.delete_btn.bind("<Enter>", lambda e: self.delete_btn.config(bg="#ff6b6b"))
+        self.delete_btn.bind("<Leave>", lambda e: self.delete_btn.config(bg="#ff3b3b"))
 
         self.media_data = {}
         self.show_all()
 
-    # ---------------- Core Functions ----------------
+    # ---------------- Functions ----------------
 
     def show_all(self):
         self.media_data = load_all_media()
@@ -225,12 +243,11 @@ class LibraryGUI:
     def search_item(self):
         name = self.search_var.get().strip()
         if not name:
-            messagebox.showwarning("Warning", "Enter a name to search")
+            messagebox.showwarning("Warning", "Enter a search term")
             return
 
         result = search_media(name)
 
-        # Fix: Ensure result always becomes a dictionary
         if not isinstance(result, dict) or not result:
             messagebox.showinfo("Not Found", "No matching book found.")
             return
@@ -262,21 +279,21 @@ class LibraryGUI:
         )
         self.details_label.config(text=details)
 
-    # ---------------- Add Book ----------------
+    # ---------------- Add Book Window ----------------
 
     def add_media_window(self):
         win = tk.Toplevel(self.root)
         win.title("Add Book")
-        win.geometry("320x250")
-        win.configure(bg="black")
+        win.geometry("340x280")
+        win.configure(bg="#020617")
 
         labels = ["Book Name", "Author", "Publication Date"]
         entries = []
 
         for text in labels:
-            tk.Label(win, text=text, bg="black", fg="white").pack(pady=3)
-            e = tk.Entry(win, font=("Helvetica", 11), bg="#1a1a1a", fg="white", insertbackground="white")
-            e.pack()
+            tk.Label(win, text=text, bg="#020617", fg="#e2e8f0", font=("Segoe UI", 10)).pack(pady=4)
+            e = tk.Entry(win, font=("Segoe UI", 11), bg="#0b1220", fg="white", insertbackground="white")
+            e.pack(pady=3)
             entries.append(e)
 
         name, author, date = entries
@@ -290,24 +307,40 @@ class LibraryGUI:
             win.destroy()
             self.show_all()
 
-        tk.Button(win, text="Add Book", bg="#4da6ff", fg="black", command=submit).pack(pady=10)
+        tk.Button(
+            win,
+            text="Add Book",
+            bg="#22c55e",
+            fg="black",
+            font=("Segoe UI", 11, "bold"),
+            relief="flat",
+            command=submit
+        ).pack(pady=12)
 
-    # ---------------- Delete Book ----------------
+    # ---------------- Delete Logic ----------------
 
     def remove_selected(self):
         selection = self.media_list.curselection()
         if not selection:
-            messagebox.showwarning("Warning", "Select an item to delete")
+            messagebox.showwarning("No Selection", "Please select a book to delete.")
             return
 
         index = selection[0]
         item_id = list(self.media_data.keys())[index]
 
+        confirm = messagebox.askyesno(
+            "Confirm Delete",
+            "Are you sure you want to delete this book?\nThis action cannot be undone."
+        )
+        if not confirm:
+            return
+
         delete_media(item_id)
         self.show_all()
 
 
-# ----------------------------- Run App -----------------------------
+# ----------------------- Run App -----------------------
+
 root = tk.Tk()
 app = LibraryGUI(root)
 root.mainloop()
